@@ -1,0 +1,109 @@
+body {
+    max-width: 100%;
+    margin: 0 auto;
+    font-family:"Sawarabi Gothic",sans-serif;
+    margin: 10px;
+    padding: 10px;
+    color: #cfb8a5;
+    background-color: #f5f5f5;
+}
+
+.thumbnail {
+    width: 300px;
+}
+.blog-image{
+    width:100%;
+}
+
+src/components/Header.astro@media (max-width: 600px) {
+    .thumbnail {
+        width: 200px;
+    }
+    .blog-image{
+        width:100%;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+    }
+}
+
+.blog-text{
+    font-family:"Sawarabi Gothic",sans-serif;
+    font-size: 0.8em;  /* 基本のフォントサイズ */
+    line-height: 1.5;  /* 行間 */
+    color: #cfb8a5;  /* テキスト色 */
+    margin-bottom: 1em;  /* 段落間のマージン */
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+p {
+    font-size: 0.8em;  /* 基本のフォントサイズ */
+    line-height: 1.5;  /* 行間 */
+    color: #cfb8a5;  /* テキスト色 */
+    margin-bottom: 1em;  /* 段落間のマージン */
+}
+
+h1 {
+    font-size: 1.2em;  /* 基本のフォントサイズの2倍 */
+    margin-bottom: 0.2em;  /* 下マージン */
+    font-weight: 100;
+}
+
+h2 {
+    font-size: 1em;  /* 基本のフォントサイズの1.75倍 */
+    margin-bottom: 0.1em;
+    font-weight: 100;
+}
+
+/* ... and so on for other heading levels ... */
+
+a {
+    color: #cfb8a5;  /* リンク色 */
+    text-decoration: none;  /* 下線を消す */
+}
+
+a:hover {
+    color: #dbd2cb;  /* ホバー時のリンク色 */
+}
+
+blockquote {
+    margin: 1em 0;  /* 上下のマージン */
+    padding-left: 1.5em;  /* 左パディング */
+    border-left: 2px solid #cfb8a5;  /* 左ボーダー */
+    color: #cfb8a5;  /* テキスト色 */
+}
+
+.post-list ul {
+    list-style: none;  /* リストマーカーを非表示にする */
+    padding: 0;  /* リストのパディングを消す */
+}
+
+.post-item {
+    margin-bottom: 2em;  /* 投稿間のマージン */
+    padding-top: 1em;  /* 投稿内のパディング */
+}
+
+.post-item .thumbnail {
+    width: 100%;  /* サムネイル画像の幅を最大に */
+    margin-bottom: 0.1em;  /* サムネイル画像とタイトル間のマージン */
+}
+
+.post-item h2 {
+    margin-top: 0.1em;  /* タイトルと日付間のマージン */
+    margin-bottom: 0.1em;  /* タイトルと日付間のマージン */
+}
+
+.post-item time {
+    font-size: 0.8em;  /* 日付のフォントサイズを小さく */
+    color: #cfb8a5;  /* 日付の色を灰色に */
+    margin-bottom: 0.1em;  /* 日付とディスクリプション間のマージン */
+}
+

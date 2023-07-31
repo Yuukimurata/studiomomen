@@ -1,0 +1,72 @@
+---
+import { spearlyApiClient } from "../lib/spearly"
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const contents = await spearlyApiClient.getList("blog")
+const posts = contents.data.map(c => {
+	const title = c.attributes.fields.data.find(f => f.attributes.identifier === "title")
+	const description = c.attributes.fields.data.find(f => f.attributes.identifier === "description")
+	const date = c.attributes.fields.data.find(f => f.attributes.identifier === "date")
+	const image = c.attributes.fields.data.find(f => f.attributes.identifier === "image")
+	const alias = c.attributes.contentAlias
+	return {
+		title: title?.attributes.value,
+		alias,
+		description: description?.attributes.value,
+		date: date?.attributes.value,
+		image: image?.attributes.value
+	}
+})
+
+const menuItems = [
+  { link: 'https://www.instagram.com/studiomomen/', text: 'instagram' },
+  { link: '/contact', text: 'contact' },
+  // 他のメニュー項目を追加
+];
+
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="/styles/global.css">
+      <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic" rel="stylesheet">
+      <title>My Blog</title>
+  </head>
+<body>
+    <div class="header">
+      <Header  items={menuItems} />
+    </div>
+
+    <main class="main-content">
+      <div class="hello">
+        <h2>STUDIO MOMEN</h2>
+        <p>田畑で作物を作り、テキスタイルをデザインする。<br>
+        生きること、はたらくこと、その全てが繋がり<br>
+        デザインが生み出されていくことを体現したいと思います。</p>
+      </div>
+      <div class="post-list">
+        <ul>
+          {posts.map((post) => (
+            <li class="post-item">
+              <img class="thumbnail" src={`${post.image}`} alt={`${post.description}`} />
+              <a href={`/posts/${post.alias}/`}>
+                <h2>{post.title}</h2>
+              </a>
+              <time>{post.date}</time>
+              <p>{post.description}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </main>
+
+    <div class="footer">
+      <Footer/>
+    </div>
+</body>
+</html>
+

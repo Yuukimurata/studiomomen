@@ -1,0 +1,21 @@
+---
+// メニュー項目の一覧をpropsとして受け取る
+const { items } = Astro.props;
+---
+<nav>
+
+  <style>
+    ul {
+      display: flex;
+      gap: 1em;
+      list-style: none;
+      padding: 0;
+    }
+  </style>
+  
+  <ul>
+    {items.map(item => (
+      <li><a href={item.link}>{item.text}</a></li>
+    ))}
+  </ul>
+</nav>
