@@ -57,7 +57,7 @@ const { title, description, date, image, body, menuItems } = Astro.props;
 <body>
   <Header items={menuItems} />
   <main>
-    <img class="blog-image" src={image} alt={description}>
+    <img class="blog-image" src={image} alt={description} />
     <h1>{title}</h1>
     <time>{date}</time>
     <article class="blog-text" set:html={body} />
