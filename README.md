@@ -55,3 +55,4 @@ http://localhost:3000 にアクセスするとテスト環境での実行が出�
 
 ### Netlify
 
+2023-08-30 build
