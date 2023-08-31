@@ -1,36 +1,48 @@
 ---
-import { spearlyApiClient } from "../../lib/spearly"; 
+import { spearlyApiClient } from "../../lib/spearly";
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
-export async function getStaticPaths() {
-    const contents = await spearlyApiClient.getList("blog")
-    const pages = contents.data.map((content => {
-        const title = content.attributes.fields.data.find(f => f.attributes.identifier === "title")
-        const description = content.attributes.fields.data.find(f => f.attributes.identifier === "description")
-        const date = content.attributes.fields.data.find(f => f.attributes.identifier === "date")
-        const image = content.attributes.fields.data.find(f => f.attributes.identifier === "image")
-        const body = content.attributes.fields.data.find(f => f.attributes.identifier === "body")
-        const alias = content.attributes.contentAlias
-        return {
-            params: { alias },
-            props: {
-                title: title?.attributes.value,
-                description: description?.attributes.value,
-                date: date?.attributes.value,
-                image: image?.attributes.value,
-                body: body?.attributes.value,
-                menuItems: [
-                    { link: 'https://www.instagram.com/studiomomen/', text: 'instagram' },
-                    { link: '/contact', text: 'contact' },
-                    // 他のメニュー項目を追加
-                ],
-            },
-        }
-    }));
-    return pages;
+function extractFirstImageFromHTML(htmlString) {
+  const regex = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
+  const match = regex.exec(htmlString);
+  return match ? match[1] : null;
 }
 
+export async function getStaticPaths() {
+  const contents = await spearlyApiClient.getList("blog");
+  const pages = contents.data.map(content => {
+    const title = content.attributes.fields.data.find(f => f.attributes.identifier === "title");
+    const description = content.attributes.fields.data.find(f => f.attributes.identifier === "description");
+    const date = content.attributes.fields.data.find(f => f.attributes.identifier === "date");
+    const image = content.attributes.fields.data.find(f => f.attributes.identifier === "image");
+    const body = content.attributes.fields.data.find(f => f.attributes.identifier === "body");
+    const alias = content.attributes.contentAlias;
+
+    let displayImage = image?.attributes.value;
+    if (!displayImage && body?.attributes.value) {
+      displayImage = extractFirstImageFromHTML(body.attributes.value);
+    }
+
+    return {
+      params: { alias },
+      props: {
+        image: displayImage,
+        title: title?.attributes.value,
+        description: description?.attributes.value,
+        date: date?.attributes.value,
+        body: body?.attributes.value,
+        menuItems: [
+          { link: 'https://www.instagram.com/studiomomen/', text: 'Instagram' },
+          { link: '/contact', text: 'Contact' },
+          // 他のメニュー項目を追加
+        ],
+      },
+    };
+  });
+
+  return pages;
+}
 
 const { title, description, date, image, body, menuItems } = Astro.props;
 ---

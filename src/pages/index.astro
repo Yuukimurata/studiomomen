@@ -52,8 +52,8 @@ const menuItems = [
         <ul>
           {posts.map((post) => (
             <li class="post-item">
-              <img class="thumbnail" src={`${post.image}`} alt={`${post.description}`} />
               <a href={`/posts/${post.alias}/`}>
+              <img class="thumbnail" src={`${post.image}`} alt={`${post.description}`} />
                 <h2>{post.title}</h2>
               </a>
               <time>{post.date}</time>
